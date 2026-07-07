@@ -48,16 +48,23 @@ class ScreenshotCapture:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
-    def _wait_for_page_load(self, timeout: int = 10) -> None:
-        """Espera a que la página esté completamente cargada."""
+    def _wait_for_page_load(self, timeout: int = 10, wait_for_selector: str = None) -> None:
+        """Espera a que la página esté completamente cargada o a un elemento específico."""
         try:
             WebDriverWait(self.driver, timeout).until(
                 lambda d: d.execute_script("return document.readyState") == "complete"
             )
+            
+            if wait_for_selector:
+                log.info(f"  ⏳ Esperando explícitamente al selector: {wait_for_selector}")
+                WebDriverWait(self.driver, 15).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, wait_for_selector))
+                )
+            
             # Esperar a que spinners/loaders desaparezcan (si los hay)
             time.sleep(config.SCREENSHOT_WAIT)
         except Exception:
-            log.warning("Timeout esperando carga de página. Continuando de todas formas.")
+            log.warning("Timeout esperando carga de página/elemento. Continuando de todas formas.")
 
     def take(self, module_id: str, suffix: str = "") -> dict:
         """
@@ -79,6 +86,7 @@ class ScreenshotCapture:
             filename=f"{module_id}{suffix}",
             folder=module["images_folder"],
             module_name=module["name"],
+            wait_for_selector=module.get("wait_for_selector")
         )
 
     def take_url(
@@ -86,7 +94,7 @@ class ScreenshotCapture:
         url: str,
         filename: str,
         folder: str,
-        module_name: str = "",
+        wait_for_selector: str = None,
         scroll_to_bottom: bool = False,
     ) -> dict:
         """
@@ -97,6 +105,7 @@ class ScreenshotCapture:
             filename: Nombre del archivo (sin extensión), en kebab-case
             folder: Subcarpeta dentro de docs/images/ (ej: "dashboard")
             module_name: Nombre descriptivo del módulo (para logs)
+            wait_for_selector: CSS selector a esperar antes de capturar
             scroll_to_bottom: Si True, hace scroll al fondo antes de capturar
 
         Returns:
@@ -107,7 +116,7 @@ class ScreenshotCapture:
 
         # Navegar a la URL
         self.driver.get(url)
-        self._wait_for_page_load()
+        self._wait_for_page_load(wait_for_selector=wait_for_selector)
 
         if scroll_to_bottom:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")

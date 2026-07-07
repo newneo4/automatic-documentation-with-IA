@@ -69,24 +69,20 @@ Este template es 100% dinámico. Antes de escribir una sola línea, necesitas "b
 
 ---
 
-## 🤖 Magia Negra: Automatización con IA
+## 🤖 Magia Negra: Arquitectura BYOA (Bring Your Own Agent)
 
-La carpeta `agent_skills/` contiene scripts de automatización con Selenium. En lugar de sacar capturas a mano y redactar texto aburrido, la IA lo hará por ti.
+Este template no te obliga a configurar API Keys complicadas ni gasta tus créditos de OpenAI/Gemini directamente desde Python. Utilizamos un flujo **Bring Your Own Agent**: nuestros scripts (Orquestador) preparan el contexto perfecto y tú se lo entregas a tu Agente favorito (Cursor, Cline, GitHub Copilot, Claude).
 
 ### 1. Prepara las credenciales locales
-Crea un archivo `.env.docs` en la carpeta `agent_skills/` (este archivo está ignorado por Git por seguridad):
+Crea un archivo `.env.docs` en la carpeta `agent_skills/` para que Selenium pueda navegar por tu app:
 ```env
 # Usuario de prueba para que el bot navegue tu sistema
 TEST_USER=admin@miempresa.com
 TEST_PASSWORD=secreto123
-
-# LLM a utilizar
-AI_PROVIDER=gemini # o openai
-AI_API_KEY=tu_api_key
 ```
 
 ### 2. Evita alucinaciones (Inyección de Contexto)
-Para que la IA no invente descripciones viendo solo una foto, puedes inyectarle tu código fuente. Abre `agent_skills/config.py` y añade la propiedad `code_sources`:
+Para que la IA no invente descripciones viendo solo una foto, puedes inyectarle tu código fuente y obligar a Selenium a esperar a que carguen tus SPAs (Next.js/React). Abre `agent_skills/config.py` y configura `wait_for_selector` y `code_sources`:
 
 ```python
 MODULES = [
@@ -94,6 +90,7 @@ MODULES = [
         "id": "login",
         "url": "http://localhost:3000/login",
         "section_file": "01_login",
+        "wait_for_selector": "form button[type='submit']", # ¡Vital para que Next.js renderice antes de la foto!
         # ¡El agente leerá estos archivos para describir el frontend con precisión milimétrica!
         "code_sources": [
             "frontend/src/pages/Login.jsx",
@@ -103,13 +100,22 @@ MODULES = [
 ]
 ```
 
-### 3. Ejecuta el Orquestador
-Instala los requirements y pon a trabajar al bot:
+### 3. Ejecuta el Orquestador de Contexto
+Instala los requirements y pon a trabajar al bot de Selenium:
 ```bash
 pip install -r agent_skills/requirements.txt
 python agent_skills/orchestrator.py --all
 ```
-El agente abrirá Chrome, tomará capturas, dibujará rectángulos rojos sobre los botones, invocará al LLM y te devolverá un archivo `.tex` listo para compilar.
+El agente abrirá Chrome, tomará capturas, dibujará rectángulos rojos sobre los botones y generará un paquete de **Instrucciones Markdown** en la carpeta `docs/agent_prompts/`.
+
+### 4. Pide a tu IA que escriba el código
+Abre el chat de tu IA (Cursor, Cline) y dile:
+> *"Lee todos los archivos dentro de `docs/agent_prompts/` y sigue estrictamente las instrucciones de cada archivo para generar los documentos LaTeX finales en `docs/sections/`."*
+
+¡Tu IA leerá el código fuente, verá las imágenes anotadas y escribirá los `.tex` perfectos!
+
+### 5. Inyecta y Compila
+Añade manualmente los `\input{sections/01_login}` en tus documentos `documentacion_tecnica.tex` y `guia_usuario.tex` antes del `\end{document}` y compila:
 
 ---
 

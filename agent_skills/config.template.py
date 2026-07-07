@@ -42,10 +42,6 @@ load_dotenv(dotenv_path=env_path)
 USERNAME = os.getenv("TEST_USER", "")
 PASSWORD = os.getenv("TEST_PASSWORD", "")
 
-# Configuración del LLM
-AI_PROVIDER = os.getenv("AI_PROVIDER", "")
-AI_API_KEY = os.getenv("AI_API_KEY", "")
-
 # (Opcional) Define aquí módulos dinámicamente o expórtalos a un archivo de configuración separado
 MODULES = [
     {
@@ -54,6 +50,7 @@ MODULES = [
         "url": f"{BASE_URL}{LOGIN_URL}",
         "section_file": "01_login",
         "images_folder": "login",
+        "wait_for_selector": "form button[type='submit']", # (Opcional) Esperar a que este selector CSS exista (útil para SPAs)
         "code_sources": [
             "frontend/src/pages/Login.vue",
             "backend/api/views/auth.py"
