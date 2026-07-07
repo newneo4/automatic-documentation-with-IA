@@ -1,0 +1,51 @@
+# Archivos auxiliares generados por LaTeX — NO versionados
+# ============================================================
+
+# Archivos de compilación de LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+
+# PDFs compilados (usar releases para versiones definitivas)
+# Descomentar si NO quieres versionar los PDFs:
+# docs/*.pdf
+
+# EXCEPCIÓN: los templates sí deben versionarse
+!docs/templates/
+!docs/templates/*.pdf
+
+# Editor y sistema operativo
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Credenciales de Agent Skills
+.env.docs
+
+# Borradores de revisión (archivos temporales — NO versionados)
+# Las correcciones definitivas van en docs/sections/
+review/*.tex
+review/*.aux
+review/*.log
+review/*.out
+review/*.pdf
+!review/README.md

@@ -1,0 +1,64 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[provide=*,{{LANGUAGE}}]{babel}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
+
+\usepackage[
+  a4paper,
+  top=3cm, bottom=3cm,
+  left=2.5cm, right=2.5cm,
+  headheight=15pt
+]{geometry}
+
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage[framemethod=TikZ,nobreak=false]{mdframed}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{float}
+\usepackage[justification=centering]{caption}
+\usepackage[export]{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\captionsetup{
+  font=small,
+  labelfont={bf, color={{PREFIX}}Primary},
+  format=plain,
+  skip=6pt
+}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, label=\textcolor{{{PREFIX}}Primary}{\textbullet}}
+\usepackage{listings}
+\lstset{
+  basicstyle=\small\ttfamily,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{{{PREFIX}}Gray},
+  backgroundcolor=\color{{{PREFIX}}LightGray},
+  keywordstyle=\color{{{PREFIX}}Primary}\bfseries,
+  commentstyle=\color{{{PREFIX}}Gray}\itshape,
+  numbers=left,
+  numberstyle=\tiny\color{{{PREFIX}}Gray},
+  tabsize=2
+}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\color{{{PREFIX}}Primary}}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{{{PREFIX}}Black}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{{{PREFIX}}Gray}}{\thesubsubsection.}{0.5em}{}
+
+\usepackage[
+  colorlinks=true,
+  linkcolor={{PREFIX}}Primary,
+  urlcolor={{PREFIX}}Accent,
+  citecolor={{PREFIX}}Primary
+]{hyperref}

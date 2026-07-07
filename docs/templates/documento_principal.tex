@@ -1,0 +1,63 @@
+\documentclass[12pt, a4paper, oneside]{article}
+
+% ---------------------------------------------------------
+% PREÁMBULO COMÚN (Paquetes)
+% ---------------------------------------------------------
+\input{preambulo/packages}
+
+% ---------------------------------------------------------
+% COLORES E IDENTIDAD
+% ---------------------------------------------------------
+\input{preambulo/colors}
+\input{preambulo/custom_envs}
+
+% ---------------------------------------------------------
+% ENCABEZADO Y PIE
+% ---------------------------------------------------------
+\input{preambulo/{{HF_FILE}}}
+
+\begin{document}
+
+% ---------------------------------------------------------
+% PORTADA
+% ---------------------------------------------------------
+\begin{titlepage}
+  \centering
+  \vspace*{1.5cm}
+
+  {\Large\textbf{{{INSTITUTION}}}}\\[0.3cm]
+  {\large\textbf{{{DEPARTMENT}}}}\\[0.3cm]
+
+  \vspace{1.5cm}
+  \noindent\rule{\textwidth}{2pt}\\[0.3cm]
+
+  {\LARGE\bfseries\color{{{PREFIX}}Primary}
+    {{TITLE}}
+  }\\[0.3cm]
+  \noindent\rule{\textwidth}{0.5pt}
+
+  \vspace{1cm}
+  {\large [VERSIÓN {{VERSION}}]}
+
+  \vfill
+
+  \begin{tabular}{ll}
+    \textbf{Proyecto:}    & {{FULL_NAME}} \\
+    \textbf{Versión:}     & {{VERSION}} \\
+    \textbf{Fecha:}       & \today \\
+    \textbf{Institución:} & {{INSTITUTION}} \\
+  \end{tabular}
+
+  \vspace{1.5cm}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------
+% CONTENIDO MODULAR
+% ---------------------------------------------------------
+% \input{sections/01_introduccion}
+
+\end{document}

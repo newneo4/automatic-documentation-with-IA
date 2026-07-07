@@ -1,0 +1,19 @@
+# Dependencias del sistema de agent skills DRII
+# Instalar con: pip install -r requirements.txt
+
+# Automatización del navegador (capturas de pantalla)
+selenium>=4.18.0
+webdriver-manager>=4.0.1
+
+# Procesamiento de imágenes (anotaciones)
+Pillow>=10.0.0
+
+# Variables de entorno
+python-dotenv>=1.0.0
+
+# Utilidades
+requests>=2.31.0
+
+# IA para generación de descripciones (opcional — descomentar según proveedor)
+# google-generativeai>=0.5.0       # Gemini
+# openai>=1.12.0                   # OpenAI GPT-4o
