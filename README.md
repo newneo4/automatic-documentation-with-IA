@@ -6,9 +6,30 @@ El objetivo de este template es permitirte documentar cualquier sistema de softw
 
 ---
 
-## 🚀 1. Configuración Inicial (El paso más importante)
+## 📦 1. Integrando el Template a tu Proyecto
+
+Tienes dos formas principales de usar esta plantilla en tus proyectos de software:
+
+### Opción A: Como Submódulo Git (Recomendado)
+Si quieres que tu repositorio principal rastree esta documentación como una entidad separada, ve a la raíz de tu proyecto y ejecuta:
+```bash
+git submodule add https://github.com/tu-usuario/doc-template-latex.git docs-template
+cd docs-template
+```
+*Esta opción es ideal porque mantienes el historial de tu código separado del historial de tu documentación.*
+
+### Opción B: Copia Directa
+Si prefieres tener todo en un mismo repositorio sin submódulos, simplemente clona este repositorio, borra la carpeta `.git` interna, y cópialo dentro de tu proyecto (ej. en una carpeta `/docs`).
+
+---
+
+## 🚀 2. Configuración Inicial (El paso más importante)
 
 Antes de empezar a escribir o pedirle a la IA que documente tu sistema, necesitas "bautizar" tu proyecto. Este template es 100% dinámico y se adaptará a la identidad de tu empresa o aplicación.
+
+> **💡 CONSEJO PRO: ¡Pídele ayuda a tu IA!**
+> Si estás usando un agente (como Claude, Gemini o Cursor) en tu proyecto, no tienes que hacer esto a mano. Simplemente dile a tu agente: 
+> *"Revisa mi base de código actual y ayúdame a llenar el archivo `docs-template/project.conf` con los colores de mi marca, el stack tecnológico que uso y el nombre de mi proyecto."*
 
 1. **Abre el archivo `project.conf`** que está en la raíz de este directorio.
 2. **Personaliza los valores**. El archivo está dividido en secciones muy intuitivas:
@@ -26,7 +47,7 @@ Antes de empezar a escribir o pedirle a la IA que documente tu sistema, necesita
 
 ---
 
-## 📖 2. Escribiendo la Documentación
+## 📖 3. Escribiendo la Documentación
 
 La estructura de carpetas de LaTeX está pensada de forma modular para que proyectos grandes no se vuelvan un desastre de código.
 
@@ -50,7 +71,7 @@ make clean    # Borra los archivos temporales de LaTeX
 
 ---
 
-## 🤖 3. Automatización con IA (Agent Skills)
+## 🤖 4. Automatización con IA (Agent Skills)
 
 ¡No tienes que escribir la documentación tú mismo! Este template incluye scripts en Python (`agent_skills/`) capaces de navegar por tu sistema web, tomar capturas de pantalla, añadirles anotaciones rojas y usar modelos como **GPT-4o o Gemini 1.5** para redactar el código LaTeX por ti.
 
@@ -78,7 +99,11 @@ make clean    # Borra los archivos temporales de LaTeX
 ### 🧠 Evitando Alucinaciones: Inyección de Código (Code Context)
 A veces la IA no adivina correctamente para qué sirve un botón solo viendo la captura de pantalla. ¡Para eso le pasamos el código fuente!
 
-Abre `agent_skills/config.py` y define tus módulos. Añade la propiedad `code_sources` con las rutas a los archivos reales de tu proyecto (React, Vue, Django):
+Abre `agent_skills/config.py` y define tus módulos. Añade la propiedad `code_sources` con las rutas a los archivos reales de tu proyecto (React, Vue, Django).
+
+> **💡 CONSEJO PRO:**
+> Nuevamente, ¡delega esto a tu IA! Puedes pedirle:
+> *"Revisa las vistas de mi aplicación y genérame el diccionario `MODULES` para `agent_skills/config.py`, asegurándote de incluir en `code_sources` los componentes correctos para cada pantalla."*
 
 ```python
 MODULES = [
