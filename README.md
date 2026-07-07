@@ -18,16 +18,19 @@ La mejor manera de usar este template es tratarlo como un boilerplate y adueñar
 Abre tu terminal en la raíz de tu proyecto principal y ejecuta:
 
 ```bash
-# 1. Copia el template usando degit (descarga sin el historial de git)
-npx degit tu-usuario/doc-template-latex docs
+# 1. Copia el template (descarga sin el historial de git original)
+npx degit newneo4/automatic-documentation-with-IA docs
 
 # 2. Entra a la nueva carpeta
 cd docs
 
-# 3. Inicializa el proyecto con valores por defecto
+# 3. ¡IMPORTANTE! Edita 'project.conf' con los datos de tu proyecto
+# (Abre project.conf en tu editor y define tus colores institucionales y nombre)
+
+# 4. Inicializa el proyecto para generar los estilos en base a tu configuración
 python scripts/init_project.py
 
-# 4. Compila la documentación base
+# 5. Compila la documentación base de prueba
 cd docs && make
 ```
 ¡Felicidades! 🎉 Tienes un `documentacion_tecnica.pdf` compilado en tu carpeta `docs/`.
@@ -40,9 +43,9 @@ Este repositorio es un **Template**, no una librería. Puesto que necesitarás m
 
 | Método | Casos de Uso | Comandos |
 |--------|--------------|----------|
-| **Copia Independiente (Recomendado)** | Quieres la documentación dentro de tu mono-repo y planeas versionar los cambios (`.tex`, imágenes) junto con tu código fuente. No genera conflictos de submódulos sucios. | `npx degit user/repo docs` <br> *(o clonar y borrar `.git`)* |
+| **Copia Independiente (Recomendado)** | Quieres la documentación dentro de tu mono-repo y planeas versionar los cambios (`.tex`, imágenes) junto con tu código fuente. No genera conflictos de submódulos sucios. | `npx degit newneo4/automatic-documentation-with-IA docs` <br> *(o clonar y borrar `.git`)* |
 | **Repositorio Separado** | El equipo de documentación es distinto al de desarrollo. Quieres mantener el historial de la documentación completamente aislado. | Dale al botón **"Use this template"** en GitHub. |
-| **Git Submodule (Avanzado)** | Tienes experiencia avanzada en Git, deseas recibir actualizaciones upstream (commits del creador del template) y sabes cómo lidiar con cabezas desacopladas (`detached HEAD`). | `git submodule add URL docs` |
+| **Git Submodule (Avanzado)** | Tienes experiencia avanzada en Git, deseas recibir actualizaciones upstream (commits del creador del template) y sabes cómo lidiar con cabezas desacopladas (`detached HEAD`). | `git submodule add https://github.com/newneo4/automatic-documentation-with-IA.git docs` |
 
 ---
 
