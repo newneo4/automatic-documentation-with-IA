@@ -149,39 +149,45 @@ class Orchestrator:
         log.info(f"\n✅  Documentación completada en {elapsed}s")
         return self.results
 
-    def update_main_tex_inputs(self, document_name: str = "documentacion_tecnica") -> None:
+    def update_main_tex_inputs(self, document_names: list = None) -> None:
         r"""
-        Actualiza el documento LaTeX principal para incluir las secciones generadas
+        Actualiza los documentos LaTeX principales para incluir las secciones generadas
         con \input{sections/XX_modulo} (descomentando o agregando las líneas).
         """
-        main_tex = config.DOCS_PATH / f"{document_name}.tex"
-        if not main_tex.exists():
-            log.warning(f"No encontrado: {main_tex}")
-            log.warning("¿Ejecutaste 'python scripts/init_project.py' antes de correr el orquestador? Los archivos .tex base deben existir primero.")
-            return
+        if document_names is None:
+            document_names = ["documentacion_tecnica", "guia_usuario"]
 
-        content = main_tex.read_text(encoding="utf-8")
-        inputs_block = "\n% --- Secciones generadas por el agente ---\n"
-
-        for module in config.MODULES:
-            section_file = module.get("section_file")
-            if not section_file:
+        for doc_name in document_names:
+            main_tex = config.DOCS_PATH / f"{doc_name}.tex"
+            if not main_tex.exists():
+                log.warning(f"No encontrado: {main_tex}")
+                log.warning("¿Ejecutaste 'python scripts/init_project.py' antes de correr el orquestador? Los archivos .tex base deben existir primero.")
                 continue
-            section_path = config.SECTIONS_PATH / f"{section_file}.tex"
-            if section_path.exists():
-                line = f"\\input{{sections/{section_file}}}"
-                # Solo agregar si no existe ya
-                if line not in content:
-                    inputs_block += f"{line}\n"
 
-        if inputs_block.strip() != "\n% --- Secciones generadas por el agente ---\n":
-            # Insertar antes de \end{document}
-            content = content.replace(
-                "\\end{document}",
-                f"{inputs_block}\n\\end{{document}}"
-            )
-            main_tex.write_text(content, encoding="utf-8")
-            log.info(f"✅  {document_name}.tex actualizado con \\input{{}} de secciones.")
+            content = main_tex.read_text(encoding="utf-8")
+            inputs_block = f"\n% --- Secciones generadas por el agente para {doc_name} ---\n"
+            added = False
+
+            for module in config.MODULES:
+                section_file = module.get("section_file")
+                if not section_file:
+                    continue
+                section_path = config.SECTIONS_PATH / f"{section_file}.tex"
+                if section_path.exists():
+                    line = f"\\input{{sections/{section_file}}}"
+                    # Solo agregar si no existe ya
+                    if line not in content:
+                        inputs_block += f"{line}\n"
+                        added = True
+
+            if added:
+                # Insertar antes de \end{document}
+                content = content.replace(
+                    "\\end{document}",
+                    f"{inputs_block}\n\\end{{document}}"
+                )
+                main_tex.write_text(content, encoding="utf-8")
+                log.info(f"✅  {doc_name}.tex actualizado con \\input{{}} de secciones.")
 
     def assemble_review_draft(self, document: str = "documentacion_tecnica") -> str:
         """

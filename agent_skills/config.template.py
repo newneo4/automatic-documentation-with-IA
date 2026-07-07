@@ -31,8 +31,9 @@ SCREENSHOT_FORMAT = "png"
 # Logging
 LOG_LEVEL = "INFO"
 
-# Color de anotaciones (Rojo por defecto)
+# Color y grosor de anotaciones
 COLOR_ANNOTATION = (255, 0, 0)
+ANNOTATION_LINE_WIDTH = 3
 
 # Cargar credenciales desde .env
 env_path = BASE_DIR / "agent_skills" / ".env.docs"
