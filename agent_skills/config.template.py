@@ -31,6 +31,9 @@ SCREENSHOT_FORMAT = "png"
 # Logging
 LOG_LEVEL = "INFO"
 
+# Color de anotaciones (Rojo por defecto)
+COLOR_ANNOTATION = (255, 0, 0)
+
 # Cargar credenciales desde .env
 env_path = BASE_DIR / "agent_skills" / ".env.docs"
 load_dotenv(dotenv_path=env_path)
