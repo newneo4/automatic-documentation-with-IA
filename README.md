@@ -30,7 +30,10 @@ cd docs
 # 4. Inicializa el proyecto para generar los estilos en base a tu configuración
 python scripts/init_project.py
 
-# 5. Compila la documentación base de prueba
+# 5. (Opcional) Instala las dependencias si vas a usar la IA para documentar
+pip install -r agent_skills/requirements.txt
+
+# 6. Compila la documentación base de prueba
 cd docs && make
 ```
 ¡Felicidades! 🎉 Tienes un `documentacion_tecnica.pdf` compilado en tu carpeta `docs/`.
