@@ -6,7 +6,7 @@ def main():
     print("Iniciando configuración del proyecto de documentación...")
     
     # 1. Leer configuración
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(inline_comment_prefixes=('#', ';'))
     if not os.path.exists('project.conf'):
         print("Error: No se encontró 'project.conf'. Ejecute este script desde la raíz del template.")
         return

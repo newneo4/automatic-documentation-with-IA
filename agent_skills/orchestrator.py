@@ -150,13 +150,14 @@ class Orchestrator:
         return self.results
 
     def update_main_tex_inputs(self, document_name: str = "documentacion_tecnica") -> None:
-        """
+        r"""
         Actualiza el documento LaTeX principal para incluir las secciones generadas
         con \input{sections/XX_modulo} (descomentando o agregando las líneas).
         """
         main_tex = config.DOCS_PATH / f"{document_name}.tex"
         if not main_tex.exists():
             log.warning(f"No encontrado: {main_tex}")
+            log.warning("¿Ejecutaste 'python scripts/init_project.py' antes de correr el orquestador? Los archivos .tex base deben existir primero.")
             return
 
         content = main_tex.read_text(encoding="utf-8")
